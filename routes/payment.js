@@ -63,6 +63,17 @@ router.post('/', function(req, res, next) {
       return;
     }
 
+    //Storing the results to db
+    var MongoClient = require('mongodb').MongoClient
+    MongoClient.connect('mongodb://localhost:27017/payments', function (err, client) {
+      if (err) throw err
+      var db = client.db('payments')
+      db.collection('sales').insert({
+        request: req.body,
+        result: result
+      });
+    });
+    
     if (result.success) {
       res.send('Transaction ID: ' + result.transaction.id);
     } else {
@@ -71,6 +82,6 @@ router.post('/', function(req, res, next) {
     }
   });
 
-});
+  });
 
 module.exports = router;
