@@ -2,5 +2,20 @@
 
 {% block body %}
   <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
+   <form action="/payment" method="post"> 
+     <input type="text" id="firstName" name="firstName" value="Ahmad" required> 
+     <input type="text" id="lastName" name="lastName" value="Elmalah" required> 
+     <input type="text" id="company" name="company" value="Bosta"> 
+     <input type="text" id="phone" name="phone" value="011" required> 
+     <input type="text" id="fax" name="fax" value="012"> 
+     <input type="text" id="email" name="email" value="ahmadelmalah@gmail.com" required> 
+     <input type="text" id="website" name="website" value="site.com"> 
+     <input type="text" id="amount" name="amount" value="1.00" required> 
+     <input type="text" id="cardholderName" name="cardholderName" value="Ahmad Ally" required> 
+     <input type="text" id="cardNumber" name="cardNumber" value="5555555555554444" required> 
+     <input type="text" id="cardCvv" name="cardCvv" value="292" required> 
+     <input type="text" id="cardExpirationMonth" name="cardExpirationMonth" value="08" required> 
+     <input type="text" id="cardExpirationYear" name="cardExpirationYear" value="21" required> 
+     <input type="submit"> 
+  </form>
 {% endblock %}
