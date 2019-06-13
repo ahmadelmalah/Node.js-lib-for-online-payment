@@ -75,10 +75,16 @@ router.post('/', function(req, res, next) {
     });
     
     if (result.success) {
-      res.send('Transaction ID: ' + result.transaction.id);
+      res.render('message', {
+        title: 'Payment Successfully Completed.',
+        message: 'Transaction ID: ' + result.transaction.id
+      });
     } else {
       console.error(result.message);
-      res.send('Payment Faild!');
+      res.render('message', {
+        title: 'Payment Failed!',
+        message: result.message
+      });
     }
   });
 
