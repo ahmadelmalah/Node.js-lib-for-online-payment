@@ -114,14 +114,21 @@
 
         <div class="d-block my-3">
           <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-            <label class="custom-control-label" for="credit">Credit card</label>
+            <input id="credit" value="card" name="payment-option" type="radio" class="custom-control-input" checked required>
+            <label class="custom-control-label" for="credit">
+              Credit Card
+              <img height="35" src="https://developer.paypal.com/demo/checkout/static/img/card-mark.png" alt="Accepting Visa, Mastercard, Discover and American Express">
+            </label>
           </div>
           <div class="custom-control custom-radio">
-            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-            <label class="custom-control-label" for="paypal">PayPal</label>
+            <input id="paypal" value="paypal" name="payment-option" type="radio" class="custom-control-input" required>
+            <label class="custom-control-label" for="paypal">
+              PayPal
+              <img height="35" src="https://developer.paypal.com/demo/checkout/static/img/paypal-mark.jpg" alt="Pay with Paypal">
+            </label>
           </div>
         </div>
+        <div id="card-button-container">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="cardholderName">Name on card</label>
@@ -162,11 +169,14 @@
             </div>
           </div>
         </div>
+        </div>
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        <button id="submitButton" class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
       </form>
     </div>
   </div>
+
+  <div id="paypal-button-container" style="width: 66%"></div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2019 Bosta</p>
@@ -175,4 +185,61 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
         <script src="https://getbootstrap.com/docs/4.3/examples/checkout/form-validation.js"></script>
+
+        <script src="https://www.paypal.com/sdk/js?client-id=AXrQd29QICGDGNFgCJ70f7n2tAe3fiTKoeTrlE-6PwV_Y2fFLf7bBqt5OoWtWZrS5mWU7hfGAum2eori&currency=USD"></script>
+        <script>
+        // Listen for changes to the radio fields
+        document.querySelectorAll('input[name=payment-option]').forEach(function(el) {
+            el.addEventListener('change', function(event) {
+
+                // If PayPal is selected, show the PayPal button
+                if (event.target.value === 'paypal') {
+                    document.querySelector('#card-button-container').style.display = 'none';
+                    document.querySelector('#submitButton').style.display = 'none';
+                    document.querySelector('#paypal-button-container').style.display = 'inline-block';
+                }
+
+                // If Card is selected, show the standard continue button
+                if (event.target.value === 'card') {
+                    document.querySelector('#card-button-container').style.display = 'inline-block';
+                    document.querySelector('#submitButton').style.display = 'inline-block';
+                    document.querySelector('#paypal-button-container').style.display = 'none';
+                }
+            });
+        });
+
+        document.querySelector('#paypal-button-container').style.display = 'none';
+
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+          // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '10.00'
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            },
+
+            style: {
+                size: 'large',
+                height: 45,
+                label: 'checkout',
+                layout: 'horizontal',
+                color: 'blue',
+                shape: 'pill',
+                tagline: false
+            }
+        }).render('#paypal-button-container');
+    </script>
 {% endblock %}
