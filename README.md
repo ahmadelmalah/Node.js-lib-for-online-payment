@@ -47,3 +47,15 @@ $ nano .env
 ``` bash
 $ npm start
 ```
+
+Screenshots
+===========
+![alt tag](https://github.com/ahmadelmalah/Node.js-lib-for-online-payment/blob/master/Docs/Screens/bosta1.png)
+
+![alt tag](https://github.com/ahmadelmalah/Node.js-lib-for-online-payment/blob/master/Docs/Screens/bosta2.png)
+
+![alt tag](https://github.com/ahmadelmalah/Node.js-lib-for-online-payment/blob/master/Docs/Screens/bosta3.png)
+
+![alt tag](https://github.com/ahmadelmalah/Node.js-lib-for-online-payment/blob/master/Docs/Screens/bosta4.png)
+
+![alt tag](https://github.com/ahmadelmalah/Node.js-lib-for-online-payment/blob/master/Docs/Screens/bosta5.png)
