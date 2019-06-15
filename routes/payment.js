@@ -3,6 +3,25 @@ var router = express.Router();
 
 /* Payment API. */
 router.post('/', function(req, res, next) {
+  if (req.body['payment-option'] == 'paypal'){
+
+    //Storing the results to db
+    var MongoClient = require('mongodb').MongoClient
+    MongoClient.connect('mongodb://localhost:27017/payments', function (err, client) {
+      if (err) throw err
+      var db = client.db('payments')
+      db.collection('sales').insert({
+        request: req.body
+      });
+    });
+
+    res.render('message', {
+      title: 'Payment Successfully Completed.',
+      message: 'Using Paypal'
+    });
+    return;
+  }
+  
   var braintree = require('braintree');
 
   var gateway = braintree.connect({

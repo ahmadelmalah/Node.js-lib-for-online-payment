@@ -44,8 +44,9 @@
     </div>
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
-      <form action="/payment" method="post" class="needs-validation" novalidate>
+      <form id="paymentForm" action="/payment" method="post" class="needs-validation" novalidate>
       <input type="hidden" id="amount" name="amount" value="{{amount}}" required> 
+      <input type="hidden" id="paypal_data" name="paypal_data" value=""> 
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
