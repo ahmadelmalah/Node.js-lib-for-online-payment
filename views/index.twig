@@ -19,7 +19,7 @@
             <h6 class="my-0">Product X</h6>
             <small class="text-muted">Brief description</small>
           </div>
-          <span class="text-muted">$10</span>
+          <span class="text-muted">${{amount}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
@@ -37,7 +37,7 @@
         </li>
         <li class="list-group-item d-flex justify-content-between">
           <span>Total (USD)</span>
-          <strong>$10</strong>
+          <strong>${{amount}}</strong>
         </li>
       </ul>
 
@@ -45,7 +45,7 @@
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
       <form action="/payment" method="post" class="needs-validation" novalidate>
-      <input type="hidden" id="amount" name="amount" value="10.00" required> 
+      <input type="hidden" id="amount" name="amount" value="{{amount}}" required> 
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
@@ -182,64 +182,13 @@
     <p class="mb-1">&copy; 2019 Bosta</p>
   </footer>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-        <script src="https://getbootstrap.com/docs/4.3/examples/checkout/form-validation.js"></script>
+      
+        
 
-        <script src="https://www.paypal.com/sdk/js?client-id=AXrQd29QICGDGNFgCJ70f7n2tAe3fiTKoeTrlE-6PwV_Y2fFLf7bBqt5OoWtWZrS5mWU7hfGAum2eori&currency=USD"></script>
-        <script>
-        // Listen for changes to the radio fields
-        document.querySelectorAll('input[name=payment-option]').forEach(function(el) {
-            el.addEventListener('change', function(event) {
+        
+        
+{% endblock %}
 
-                // If PayPal is selected, show the PayPal button
-                if (event.target.value === 'paypal') {
-                    document.querySelector('#card-button-container').style.display = 'none';
-                    document.querySelector('#submitButton').style.display = 'none';
-                    document.querySelector('#paypal-button-container').style.display = 'inline-block';
-                }
-
-                // If Card is selected, show the standard continue button
-                if (event.target.value === 'card') {
-                    document.querySelector('#card-button-container').style.display = 'inline-block';
-                    document.querySelector('#submitButton').style.display = 'inline-block';
-                    document.querySelector('#paypal-button-container').style.display = 'none';
-                }
-            });
-        });
-
-        document.querySelector('#paypal-button-container').style.display = 'none';
-
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
-          // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '10.00'
-                        }
-                    }]
-                });
-            },
-
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to the buyer
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                });
-            },
-
-            style: {
-                size: 'large',
-                height: 45,
-                label: 'checkout',
-                layout: 'horizontal',
-                color: 'blue',
-                shape: 'pill',
-                tagline: false
-            }
-        }).render('#paypal-button-container');
-    </script>
+{% block scripts %}
+{% include 'scripts.twig' %}
 {% endblock %}
