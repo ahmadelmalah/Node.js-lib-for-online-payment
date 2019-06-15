@@ -27,4 +27,23 @@ Installation Guide
 $ git clone https://github.com/ahmadelmalah/Node.js-lib-for-online-payment.git
 ```
 
-* copy
+* Install NPM Modules
+
+``` bash
+$ cd Node.js-lib-for-online-payment
+$ npm install
+```
+* Create .env for your enviromental variables by copying .env.example
+
+``` bash
+$ cp .env.example .env
+```
+* Update .env with your sandbox accounts (You can replace nano with your favourite editor)
+
+``` bash
+$ nano .env
+```
+* Now we are ready!
+``` bash
+$ npm start
+```
