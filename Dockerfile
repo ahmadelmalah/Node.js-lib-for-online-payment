@@ -15,5 +15,5 @@ EXPOSE 3000
 CMD [ "npm", "start" ]
 
 # Build and Run Command:
-# docker build -t ahmadelmalah/Node.js-lib-for-online-payment:latest .  
-# docker run -p 8000:3000 ahmadelmalah/Node.js-lib-for-online-payment:latest
+# docker build -t ahmadelmalah/node.js-lib-for-online-payment:latest .  
+# docker run -p 8000:3000 ahmadelmalah/node.js-lib-for-online-payment:latest
